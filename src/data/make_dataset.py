@@ -19,7 +19,7 @@ unemp.groupby('Year').mean().to_csv('../../data/interim/unemployment by year.csv
 #Removing unnecessary data, restricting to the 1990-2016 Fiscal Years and Total Benefits
 funding = funding[21:48].loc[:,['Fiscal Year','Total Benefits(M)']]
 funding['Total Benefits(M)'] = funding['Total Benefits(M)'].str.replace(',','')
-funding.to_csv('../../data/interim/benefits by uear.csv')
+funding.to_csv('../../data/interim/benefits by year.csv')
 
 #Pull the CPI information, average it across the year for all states, trim year down to 1990-2016
 min_wage.groupby('Year').mean()['CPI.Average'][22:-1].to_csv('../../data/interim/cpi average by year.csv')
