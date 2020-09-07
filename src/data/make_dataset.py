@@ -21,3 +21,17 @@ funding[21:48].loc[:,['Fiscal Year','Total Benefits(M)']].to_csv('../../data/int
 
 #Pull the CPI information, average it across the year for all states, trim year down to 1990-2016
 min_wage.groupby('Year').mean()['CPI.Average'][22:-1].to_csv('../../data/interim/cpi average by year.csv')
+
+#Open all generated CSVs
+benefits = pd.read_csv('../../data/interim/benefits by year.csv')
+cpi = pd.read_csv('../../data/interim/cpi average by year.csv')
+unemp = pd.read_csv('../../data/interim/unemployment by year.csv')
+
+#Concatenate horizontally
+df = pd.concat([benefits['Total Benefits(M)'],cpi['CPI.Average'],unemp['Rate']],axis=1)
+
+#Rename the index to reflect the year the data relates to
+df.index = pd.Series(range(1990,2017))
+
+#Output final combined dataset in CSV
+df.to_csv('../../data/processed/benefits_cpi_unemprate_dataset.csv')
